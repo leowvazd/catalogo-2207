@@ -67,10 +67,10 @@ class Product extends Model
     public function scopeSearchVariants(Builder $query, ?string $product_id)
     {
         if (empty($product_id)) {
-            return null;
+            return $query;
         }
 
-        return $query->where('product_id', '=', $product_id);
+        return $query->where('id', '=', $product_id);
     }
 
     /*

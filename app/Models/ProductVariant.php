@@ -15,7 +15,7 @@ class ProductVariant extends Model
     protected $fillable = [
         'product_id',
         'sku',
-        'stok',
+        'stock',
         'price',
         'is_active',
     ];
@@ -55,5 +55,10 @@ class ProductVariant extends Model
     public function variantAttributes(): HasMany
     {
         return $this->hasMany(ProductVariantAttribute::class);
+    }
+    
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
     }
 }

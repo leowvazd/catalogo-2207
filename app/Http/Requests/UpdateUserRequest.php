@@ -8,6 +8,10 @@ use App\http\Requests\StoreUserRequest;
 
 class UpdateUserRequest extends StoreUserRequest
 {
+    public function authorize(): bool
+    {
+        return true;
+    }
     /**
      * Get the validation rules that apply to the request.
      *

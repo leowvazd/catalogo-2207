@@ -124,7 +124,7 @@
                                 </td>
                                 <td class="text-center pe-3">
                                     <div>
-                                        <form action="{{ route('attributes.edit', $attribute) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('attributes.edit', $attribute) }}" method="GET" class="d-inline">
                                             @csrf
                                             <button type="submit" class="btn btn-outline-secondary" title="Editar">
                                                 <i class="bi bi-pencil"></i>

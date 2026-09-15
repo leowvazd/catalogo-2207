@@ -147,7 +147,7 @@
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                                                         </div>
                                                         
-                                                        <form action="{{ route('attributes.update-option', $item->id) }}" method="POST">
+                                                        <form action="{{ route('attributes.update-option', $item) }}" method="POST">
                                                             @csrf
                                                             @method('PUT')
                                                             <div class="modal-body text-start">
@@ -206,11 +206,11 @@
                     <!-- Criar nova opção geralmente é POST em vez de PUT -->
                     <div class="modal-body text-start">
                         <div class="mb-3">
-                            <label for="optionName" class="form-label">Nome da Opção <span class="text-danger">*</span></label>
+                            <label for="option" class="form-label">Nome da Opção <span class="text-danger">*</span></label>
                             <input 
                                 type="text" 
                                 class="form-control" 
-                                id="optionName" 
+                                id="option" 
                                 name="option"
                                 value="{{ old('option') }}" 
                                 required

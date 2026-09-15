@@ -2,7 +2,7 @@
 
 return[
     'admins'=>[
-        'lukinhag9@gmail.com',
-        'usuario@email.com'
+        'admin@losum.com',
+        'admin@lessenzza.com'
     ]
 ];

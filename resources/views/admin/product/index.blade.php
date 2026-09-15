@@ -107,17 +107,18 @@
                                 </td>
                                 <td class="text-center pe-3">
                                     <div>
+                                        {{--  
                                         <a href="{{ route('products.index', $product) }}" class="btn btn-outline-primary" title="Visualizar">
                                             <i class="bi bi-eye"></i>
                                         </a>
-                                        <form action="{{ route('products.edit', $product) }}" method="POST" class="d-inline">
+                                        --}}
+                                        <form action="{{ route('products.edit', $product->id) }}" method="GET" class="d-inline">
                                             @csrf
-                                            @method('PUT')
                                             <button type="submit" class="btn btn-outline-secondary" title="Editar">
                                                 <i class="bi bi-pencil"></i>
                                             </button>
                                         </form>
-                                        <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline" onsubmit="return confirm('Tem certeza que deseja mover este produto para a lixeira?');">
+                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Tem certeza que deseja mover este produto para a lixeira?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-outline-danger" title="Excluir">

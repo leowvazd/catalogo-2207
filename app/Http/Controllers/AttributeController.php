@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAttributeRequest;
+use App\Http\Requests\StoreOptionRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateAttributeRequest;
+use App\Http\Requests\UpdateOptionRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Attribute;
+use App\Models\AttributeOption;
 use Illuminate\Support\Str;
 
 class AttributeController extends Controller
@@ -45,8 +49,11 @@ class AttributeController extends Controller
         return view('admin.attribute.edit-attribute', compact('attribute'));
     }
 
-    public function update(){
-        return true;
+    public function update(UpdateAttributeRequest $request, Attribute $attribute){
+        $data = $request->validated();
+        $data['is_active'] = $data['is_active'] ?? false;
+
+        $attribute->update($data);
     }
 
     public function show(){
@@ -67,16 +74,38 @@ class AttributeController extends Controller
                 ->with('success', 'Atributo deletado com sucesso');
     }
 
-    public function storeOption(){
+    public function storeOption(StoreOptionRequest $request, String $attribute_id){
+        $data['attribute_id'] = $attribute_id;
+        $data = $request->validated();
 
+        AttributeOption::create($data);
+
+        return redirect()
+            ->route('attributes.index')
+            ->with('success', 'Opção criada com sucesso');
     }
 
     public function destroyOption(string $id){
+        if(!$option = AttributeOption::find($id)){
+            return redirect()
+                ->route('attributes.index')
+                ->with('message', 'Opção não encontrada');
+        }
+        $option->delete();
 
+        return redirect()
+                ->route('attributes.index')
+                ->with('success', 'Atributo deletado com sucesso');
     }
 
-    public function updateOption(){
+    public function updateOption(UpdateOptionRequest $request, AttributeOption $option){
+        $data = $request->validated();
 
+        $option->update($data);
+
+        return redirect()
+            ->route('attributes.index')
+            ->with('success', 'Opção criada com sucesso');
     }
 
     /*
