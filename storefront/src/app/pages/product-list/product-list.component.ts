@@ -18,6 +18,7 @@ export class ProductListComponent implements OnInit {
 
   response = signal<PaginatedResponse<ProductListItem> | null>(null);
   loading = signal(true);
+  error = signal(false);
 
   search = '';
   sort = '';
@@ -31,6 +32,7 @@ export class ProductListComponent implements OnInit {
 
   load() {
     this.loading.set(true);
+    this.error.set(false);
 
     this.productService
       .list({
@@ -45,8 +47,16 @@ export class ProductListComponent implements OnInit {
           this.response.set(res);
           this.loading.set(false);
         },
-        error: () => this.loading.set(false),
+        error: () => {
+          this.response.set(null);
+          this.error.set(true);
+          this.loading.set(false);
+        },
       });
+  }
+
+  get hasFilters(): boolean {
+    return !!(this.search || this.sort || this.minPrice !== null || this.maxPrice !== null);
   }
 
   onSearch() {

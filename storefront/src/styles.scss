@@ -376,3 +376,40 @@ a {
   border-color: var(--gold-light);
   background: var(--gold-pale-2);
 }
+
+/* =========================================
+   PLACEHOLDER / ESTADOS VAZIOS
+========================================= */
+
+.product-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 100%;
+  color: var(--gold-light);
+}
+
+.product-placeholder i {
+  font-size: 2.6rem;
+}
+
+.product-placeholder small {
+  font-family: 'Bodoni Moda', serif;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  color: var(--ink-soft);
+}
+
+.lessenzza-muted-icon {
+  color: var(--gold-light);
+}
+
+.lessenzza-toolbar .input-group-text {
+  border-color: var(--line);
+}
+
+.lessenzza-hero {
+  padding-bottom: 1.5rem;
+}

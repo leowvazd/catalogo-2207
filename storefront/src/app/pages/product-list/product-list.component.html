@@ -5,57 +5,75 @@
   <div class="lessenzza-divider"></div>
 </div>
 
-<div class="card border-0 shadow-sm mb-4">
-  <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-    <div class="d-flex align-items-center gap-3 flex-wrap">
-      <span class="text-muted small">
+<div class="card border-0 shadow-sm mb-4 lessenzza-toolbar">
+  <div class="card-body">
+    <form class="row g-3 align-items-end" (ngSubmit)="onSearch()">
+      <div class="col-12 col-md-6 col-lg-5">
+        <label class="form-label small text-muted mb-1" for="search">Buscar</label>
+        <div class="input-group">
+          <span class="input-group-text bg-white text-muted"><i class="bi bi-search"></i></span>
+          <input
+            id="search"
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Nome ou descrição do produto"
+            [(ngModel)]="search"
+          />
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 col-lg-2">
+        <label class="form-label small text-muted mb-1" for="minPrice">Preço mín. (R$)</label>
+        <input id="minPrice" type="number" step="0.01" min="0" name="minPrice" class="form-control" [(ngModel)]="minPrice" />
+      </div>
+
+      <div class="col-6 col-md-3 col-lg-2">
+        <label class="form-label small text-muted mb-1" for="maxPrice">Preço máx. (R$)</label>
+        <input id="maxPrice" type="number" step="0.01" min="0" name="maxPrice" class="form-control" [(ngModel)]="maxPrice" />
+      </div>
+
+      <div class="col-12 col-lg-3 d-grid">
+        <button class="btn btn-primary" type="submit"><i class="bi bi-funnel me-1"></i> Filtrar</button>
+      </div>
+    </form>
+
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 mt-3 pt-3 border-top">
+      <div class="small text-muted">
         @if (response(); as res) {
           Exibindo <strong>{{ res.from ?? 0 }}–{{ res.to ?? 0 }}</strong> de <strong>{{ res.total }}</strong> produtos
         }
-      </span>
-    </div>
+        @if (hasFilters) {
+          <button type="button" class="btn btn-link btn-sm p-0 ms-2" (click)="clearFilters()">Limpar filtros</button>
+        }
+      </div>
 
-    <form class="d-flex gap-2" (ngSubmit)="onSearch()">
-      <input
-        type="text"
-        name="search"
-        class="form-control"
-        placeholder="Buscar produtos..."
-        [(ngModel)]="search"
-      />
-      <button class="btn btn-dark" type="submit"><i class="bi bi-search"></i></button>
-    </form>
-
-    <div class="d-flex align-items-center gap-2">
-      <label class="form-label mb-0 text-nowrap small text-muted">Ordenar por:</label>
-      <select class="form-select form-select-sm" [(ngModel)]="sort" (ngModelChange)="onSortChange()">
-        <option value="">Mais relevantes</option>
-        <option value="price_asc">Menor preço</option>
-        <option value="price_desc">Maior preço</option>
-        <option value="recent">Mais recentes</option>
-        <option value="name_asc">Nome: A-Z</option>
-        <option value="name_desc">Nome: Z-A</option>
-      </select>
+      <div class="d-flex align-items-center gap-2">
+        <label class="small text-muted mb-0 text-nowrap" for="sort">Ordenar por</label>
+        <select id="sort" class="form-select form-select-sm w-auto" [(ngModel)]="sort" (ngModelChange)="onSortChange()">
+          <option value="">Mais relevantes</option>
+          <option value="price_asc">Menor preço</option>
+          <option value="price_desc">Maior preço</option>
+          <option value="recent">Mais recentes</option>
+          <option value="name_asc">Nome: A-Z</option>
+          <option value="name_desc">Nome: Z-A</option>
+        </select>
+      </div>
     </div>
-  </div>
-
-  <div class="card-body border-top pt-3 d-flex flex-wrap align-items-end gap-3">
-    <div>
-      <label class="form-label small mb-1">Preço mínimo (R$)</label>
-      <input type="number" step="0.01" class="form-control form-control-sm" [(ngModel)]="minPrice" />
-    </div>
-    <div>
-      <label class="form-label small mb-1">Preço máximo (R$)</label>
-      <input type="number" step="0.01" class="form-control form-control-sm" [(ngModel)]="maxPrice" />
-    </div>
-    <button class="btn btn-outline-dark btn-sm" (click)="onSearch()">Aplicar</button>
-    <button class="btn btn-link btn-sm" (click)="clearFilters()">Limpar filtros</button>
   </div>
 </div>
-
 @if (loading()) {
   <div class="text-center py-5">
     <div class="spinner-border text-secondary" role="status"></div>
+  </div>
+} @else if (error()) {
+  <div class="card border-0 shadow-sm">
+    <div class="card-body text-center py-5">
+      <i class="bi bi-cloud-slash fs-1 lessenzza-muted-icon"></i>
+      <h2 class="h4 mt-3">Não foi possível carregar os produtos</h2>
+      <p class="text-secondary mb-4">Nossa vitrine está temporariamente indisponível. Tente novamente em instantes.</p>
+      <button class="btn btn-primary" (click)="load()"><i class="bi bi-arrow-repeat me-1"></i> Tentar novamente</button>
+    </div>
   </div>
 } @else if (response(); as res) {
   <div class="row g-3 g-md-4">
@@ -67,9 +85,9 @@
               @if (product.image) {
                 <img [src]="product.image" [alt]="product.name" loading="lazy" />
               } @else {
-                <div class="d-flex flex-column align-items-center justify-content-center text-muted h-100">
-                  <i class="bi bi-image fs-1"></i>
-                  <small class="mt-2">Sem imagem</small>
+                <div class="product-placeholder">
+                  <i class="bi bi-handbag"></i>
+                  <small>Foto em breve</small>
                 </div>
               }
             </div>
