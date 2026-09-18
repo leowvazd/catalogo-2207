@@ -120,7 +120,9 @@
                   <i class="bi bi-eye me-1"></i> Visualizar
                 </a>
 
-                @if (product.single_variant_id) {
+                @if (demo.active()) {
+                  <button class="btn btn-outline-secondary btn-sm" disabled>Somente demonstração</button>
+                } @else if (product.single_variant_id) {
                   <button class="btn btn-primary btn-sm" (click)="addToCart(product.single_variant_id)">
                     <i class="bi bi-cart-plus me-1"></i> Adicionar ao carrinho
                   </button>

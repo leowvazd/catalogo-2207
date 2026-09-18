@@ -1,4 +1,10 @@
 <div class="d-flex flex-column min-vh-100">
+  @if (demo.active()) {
+    <div class="lessenzza-demo-banner">
+      Modo demonstração · produtos de exemplo, compras indisponíveis. A loja online abre em breve.
+    </div>
+  }
+
   <app-navbar></app-navbar>
 
   <main class="container my-4 flex-grow-1">

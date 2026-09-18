@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import { DemoService } from '../../services/demo.service';
 import { ProductDetail } from '../../models/product';
 
 @Component({
@@ -16,6 +17,7 @@ export class ProductDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private productService = inject(ProductService);
   private cartService = inject(CartService);
+  demo = inject(DemoService);
 
   product = signal<ProductDetail | null>(null);
   loading = signal(true);

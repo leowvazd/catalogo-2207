@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import { DemoService } from '../../services/demo.service';
 import { PaginatedResponse, ProductListItem } from '../../models/product';
 
 @Component({
@@ -15,6 +16,7 @@ import { PaginatedResponse, ProductListItem } from '../../models/product';
 export class ProductListComponent implements OnInit {
   private productService = inject(ProductService);
   private cartService = inject(CartService);
+  demo = inject(DemoService);
 
   response = signal<PaginatedResponse<ProductListItem> | null>(null);
   loading = signal(true);
