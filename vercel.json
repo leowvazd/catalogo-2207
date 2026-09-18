@@ -3,5 +3,15 @@
   "framework": null,
   "installCommand": "npm ci --prefix storefront",
   "buildCommand": "npm run build --prefix storefront -- --base-href /",
-  "outputDirectory": "public/storefront/browser"
+  "outputDirectory": "public/storefront/browser",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://api-production-2c088.up.railway.app/api/:path*"
+    },
+    {
+      "source": "/storage/:path*",
+      "destination": "https://api-production-2c088.up.railway.app/storage/:path*"
+    }
+  ]
 }
