@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+vendor
+node_modules
+storefront/node_modules
+storefront/.angular
+public/build
+public/storefront
+public/hot
+public/storage
+database/*.sqlite*
+storage/logs
+.git
+.idea
