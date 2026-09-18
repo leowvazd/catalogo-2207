@@ -1,0 +1,378 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+@font-face {
+  font-family: 'Bodoni Moda';
+  src: url('fonts/BodoniModa-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bodoni Moda';
+  src: url('fonts/BodoniModa-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --gold: #a9814f;
+  --gold-dark: #8a6a3d;
+  --gold-light: #cdad7d;
+  --gold-pale: #f4ead9;
+  --gold-pale-2: #faf3e7;
+  --ink: #211d18;
+  --ink-soft: #6b6257;
+  --cream: #fbf8f3;
+  --line: #e9dfc9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+h1, h2, .display-serif {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  color: var(--ink);
+}
+
+a {
+  color: var(--gold-dark);
+}
+
+::selection {
+  background: var(--gold-pale);
+  color: var(--ink);
+}
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+.lessenzza-navbar {
+  height: 84px;
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+}
+
+.lessenzza-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.lessenzza-monogram {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gold-light);
+  border-radius: 50%;
+  font-family: 'Bodoni Moda', serif;
+  font-size: 21px;
+  color: var(--gold-dark);
+  background: var(--gold-pale-2);
+}
+
+.lessenzza-name {
+  font-family: 'Bodoni Moda', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 28px;
+  letter-spacing: 1px;
+  color: var(--ink);
+}
+
+.lessenzza-tagline {
+  font-family: 'Bodoni Moda', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-soft);
+  letter-spacing: 0.5px;
+  margin-left: 4px;
+  padding-left: 12px;
+  border-left: 1px solid var(--line);
+}
+
+.lessenzza-cart {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  color: var(--ink);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.lessenzza-cart:hover {
+  color: var(--gold-dark);
+  border-color: var(--gold-light);
+  background: var(--gold-pale-2);
+}
+
+.lessenzza-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--gold);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.lessenzza-hero {
+  text-align: center;
+  padding: 2.5rem 1rem 2rem;
+}
+
+.lessenzza-hero .eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+
+.lessenzza-hero h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-style: italic;
+  margin: 0.4rem 0 0.6rem;
+}
+
+.lessenzza-hero p {
+  color: var(--ink-soft);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.lessenzza-divider {
+  width: 64px;
+  height: 1px;
+  background: var(--gold-light);
+  margin: 1.2rem auto 0;
+  position: relative;
+}
+
+.lessenzza-divider::after {
+  content: '◆';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  color: var(--gold);
+  background: var(--cream);
+  padding: 0 8px;
+}
+
+/* =========================================
+   CARDS / SURFACES
+========================================= */
+
+.card {
+  border-color: var(--line) !important;
+}
+
+.card.shadow-sm {
+  box-shadow: 0 2px 14px rgba(33, 29, 24, 0.06) !important;
+}
+
+.product-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  border-color: var(--line) !important;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-light) !important;
+  box-shadow: 0 0.75rem 1.5rem rgba(169, 129, 79, 0.18) !important;
+}
+
+.product-img-wrapper {
+  height: 220px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--gold-pale-2), #fff);
+}
+
+.product-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 575.98px) {
+  .product-img-wrapper {
+    height: 240px;
+  }
+
+  .product-card:hover {
+    transform: none;
+  }
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.btn-primary {
+  --bs-btn-bg: var(--gold);
+  --bs-btn-border-color: var(--gold);
+  --bs-btn-hover-bg: var(--gold-dark);
+  --bs-btn-hover-border-color: var(--gold-dark);
+  --bs-btn-active-bg: var(--gold-dark);
+  --bs-btn-active-border-color: var(--gold-dark);
+  --bs-btn-focus-shadow-rgb: 169, 129, 79;
+  color: #fff;
+}
+
+.btn-outline-secondary,
+.btn-outline-dark {
+  --bs-btn-color: var(--ink);
+  --bs-btn-border-color: var(--line);
+  --bs-btn-hover-bg: var(--gold-pale-2);
+  --bs-btn-hover-border-color: var(--gold-light);
+  --bs-btn-hover-color: var(--ink);
+  --bs-btn-active-bg: var(--gold-pale);
+  --bs-btn-active-border-color: var(--gold-light);
+  --bs-btn-active-color: var(--ink);
+}
+
+.btn-outline-danger {
+  --bs-btn-hover-bg: #b3543f;
+  --bs-btn-hover-border-color: #b3543f;
+}
+
+.btn-link {
+  color: var(--gold-dark);
+}
+
+/* =========================================
+   TEXT / PRICE / BADGES
+========================================= */
+
+.text-primary {
+  color: var(--gold-dark) !important;
+}
+
+.badge.bg-success-subtle {
+  background-color: var(--gold-pale) !important;
+  color: var(--gold-dark) !important;
+  border: 1px solid var(--gold-light);
+}
+
+.badge.bg-secondary {
+  background-color: #efece6 !important;
+  color: var(--ink-soft) !important;
+}
+
+/* =========================================
+   FORMS
+========================================= */
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--gold-light);
+  box-shadow: 0 0 0 0.2rem rgba(169, 129, 79, 0.15);
+}
+
+/* =========================================
+   PAGINATION
+========================================= */
+
+.pagination .page-link {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--gold);
+  border-color: var(--gold);
+}
+
+.pagination .page-link:hover {
+  background-color: var(--gold-pale-2);
+  color: var(--gold-dark);
+}
+
+/* =========================================
+   ALERTS
+========================================= */
+
+.alert-success {
+  background-color: var(--gold-pale-2);
+  border-color: var(--gold-light);
+  color: var(--gold-dark);
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.lessenzza-footer {
+  border-top: 1px solid var(--line);
+  background: #fff;
+  margin-top: 3rem;
+}
+
+.lessenzza-footer-brand {
+  font-family: 'Bodoni Moda', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--ink);
+}
+
+.lessenzza-social-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  font-size: 18px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.lessenzza-social-icon:hover {
+  color: var(--gold-dark);
+  border-color: var(--gold-light);
+  background: var(--gold-pale-2);
+}

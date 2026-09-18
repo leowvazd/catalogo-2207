@@ -1,0 +1,75 @@
+<h1 class="h4 fw-bold mb-4">Meu carrinho</h1>
+
+@if (cartService.cart().items.length === 0) {
+  <div class="card border-0 shadow-sm">
+    <div class="card-body text-center py-5">
+      <i class="bi bi-cart-x fs-1 text-muted"></i>
+      <h5 class="mt-3 text-muted">Seu carrinho está vazio</h5>
+      <a routerLink="/" class="btn btn-primary btn-sm mt-3">Continuar comprando</a>
+    </div>
+  </div>
+} @else {
+  <div class="card border-0 shadow-sm mb-3">
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Preço unit.</th>
+            <th style="width: 140px;">Quantidade</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of cartService.cart().items; track item.variant_id) {
+            <tr>
+              <td>
+                <div class="fw-semibold">{{ item.product_name }}</div>
+                <div class="small text-muted">SKU: {{ item.sku }}</div>
+              </td>
+              <td>R$ {{ item.unit_price.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</td>
+              <td>
+                <div class="d-flex align-items-center gap-1">
+                  <input
+                    type="number"
+                    [ngModel]="item.quantity"
+                    (change)="updateQuantity(item.variant_id, $any($event.target).value)"
+                    min="1"
+                    [max]="item.stock"
+                    class="form-control form-control-sm"
+                    style="width: 70px;"
+                  />
+                </div>
+              </td>
+              <td class="fw-semibold">R$ {{ item.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</td>
+              <td>
+                <button class="btn btn-outline-danger btn-sm" (click)="remove(item.variant_id)" title="Remover">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
+    <button class="btn btn-outline-secondary btn-sm" (click)="clear()">
+      <i class="bi bi-trash me-1"></i> Esvaziar carrinho
+    </button>
+
+    <div class="text-end">
+      <div class="fs-5">
+        Total:
+        <strong class="text-primary">
+          R$ {{ cartService.cart().total.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}
+        </strong>
+      </div>
+      <a routerLink="/finalizar" class="btn btn-primary mt-2">
+        Finalizar pedido <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+    </div>
+  </div>
+}

@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand navbar-light bg-white sticky-top lessenzza-navbar">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="lessenzza-brand" routerLink="/">
+      <span class="lessenzza-monogram">L</span>
+      <span class="lessenzza-name d-none d-sm-inline">Lessenzza</span>
+      <span class="lessenzza-tagline d-none d-md-inline">Defined by elegance</span>
+    </a>
+
+    <a routerLink="/carrinho" class="lessenzza-cart" aria-label="Carrinho">
+      <i class="bi bi-cart3 fs-5"></i>
+      @if (cartService.itemCount() > 0) {
+        <span class="lessenzza-badge">{{ cartService.itemCount() }}</span>
+      }
+    </a>
+  </div>
+</nav>

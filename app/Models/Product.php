@@ -17,8 +17,10 @@ class Product extends Model
         'name',
         'slug',
         'description',
+        'brand',
         'measure_unit',
         'group',
+        'weight',
         'is_active',
         'is_featured',
     ];

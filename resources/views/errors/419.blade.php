@@ -37,7 +37,7 @@
                 </p>
 
                 <!-- Botão de retorno -->
-                <a href="{{ route('home') }}" class="btn btn-primary btn-lg px-4 shadow-sm">
+                <a href="{{ url('/') }}" class="btn btn-primary btn-lg px-4 shadow-sm">
                     Voltar para a Página Inicial
                 </a>
             </div>

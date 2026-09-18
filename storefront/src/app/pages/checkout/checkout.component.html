@@ -1,0 +1,97 @@
+<h1 class="h4 fw-bold mb-4">Finalizar pedido</h1>
+
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h2 class="h6 fw-bold mb-3">Seus dados</h2>
+
+        @if (error()) {
+          <div class="alert alert-danger">{{ error() }}</div>
+        }
+
+        <form (ngSubmit)="submit()">
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label">Nome completo <span class="text-danger">*</span></label>
+              <input type="text" name="name" [(ngModel)]="form.name" class="form-control" required />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Telefone <span class="text-danger">*</span></label>
+              <input type="text" name="phone" [(ngModel)]="form.phone" class="form-control" required />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">E-mail</label>
+              <input type="email" name="email" [(ngModel)]="form.email" class="form-control" />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">CPF/CNPJ</label>
+              <input type="text" name="cnpjcpf" [(ngModel)]="form.cnpjcpf" class="form-control" />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">CEP</label>
+              <input type="text" name="postalcode" [(ngModel)]="form.postalcode" class="form-control" />
+            </div>
+
+            <div class="col-md-8">
+              <label class="form-label">Endereço</label>
+              <input type="text" name="address" [(ngModel)]="form.address" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Número</label>
+              <input type="text" name="number" [(ngModel)]="form.number" class="form-control" />
+            </div>
+
+            <div class="col-md-8">
+              <label class="form-label">Cidade</label>
+              <input type="text" name="city" [(ngModel)]="form.city" class="form-control" />
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Estado</label>
+              <input type="text" name="state" [(ngModel)]="form.state" class="form-control" />
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary mt-4 w-100" [disabled]="submitting()">
+            @if (submitting()) {
+              <span class="spinner-border spinner-border-sm me-2"></span>
+            }
+            Confirmar pedido <i class="bi bi-check2 ms-1"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <h2 class="h6 fw-bold mb-3">Resumo do pedido</h2>
+
+        <ul class="list-group list-group-flush mb-3">
+          @for (item of cartService.cart().items; track item.variant_id) {
+            <li class="list-group-item d-flex justify-content-between px-0">
+              <span>{{ item.product_name }} &times; {{ item.quantity }}</span>
+              <span class="fw-semibold">
+                R$ {{ item.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}
+              </span>
+            </li>
+          }
+        </ul>
+
+        <div class="d-flex justify-content-between fs-5">
+          <strong>Total</strong>
+          <strong class="text-primary">
+            R$ {{ cartService.cart().total.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}
+          </strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

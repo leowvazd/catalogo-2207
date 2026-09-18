@@ -5,9 +5,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AttributeController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\OrderController;
 use App\Http\Middleware\CheckIfIsAdmin;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Route;
@@ -51,7 +48,7 @@ Route::middleware(['auth', CheckIfIsAdmin::class])
         Route::delete('/produtos/{product}/variantes/{variant}',[ProductController::class, 'destroyVariant'])->name('variants.destroy');
         //Product.Variant.Option
         Route::post('/produtos/{product}/variantes/{variant}/atributos', [ProductController::class, 'StoreVariantAttribute'])->name('variants.attributes.store');
-        Route::delete(' /produtos/{product}/variantes/{variant}/atributos/{variantAttribute}', [ProductController::class, 'destroyVariantAttribute'])->name('variants.attributes.destroy');
+        Route::delete('/produtos/{product}/variantes/{variant}/atributos/{variantAttribute}', [ProductController::class, 'destroyVariantAttribute'])->name('variants.attributes.destroy');
 
 
         //Attributes
@@ -80,43 +77,10 @@ Route::middleware(['auth', CheckIfIsAdmin::class])
 
 });
 
-//Grupo para páginas de acesso público
-Route::prefix('')->group(function(){
-    // Área pública / consumidor
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-    // Produtos
-    Route::get('/home/produto/{product}', [ProductController::class, 'show'])->name('shop.products.show');
-
-    // Carrinho
-    Route::get('/home/carrinho', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/home/carrinho/adicionar/{variant}', [CartController::class, 'add'])->name('cart.add');
-    Route::put('/home/carrinho/{variant}', [CartController::class, 'update'])->name('cart.update');
-    Route::delete('/home/carrinho/{variant}', [CartController::class, 'remove'])->name('cart.remove');
-    Route::delete('/home/carrinho', [CartController::class, 'clear'])->name('cart.clear');
-
-    // Finalização
-    Route::get('/home/finalizar', [OrderController::class, 'checkout'])->name('checkout');
-    Route::post('/home/finalizar', [OrderController::class, 'store'])->name('orders.store');
-
-    // Pedido concluído
-    Route::get('/home/pedido/concluido/{order}', [OrderController::class, 'success'])->name('orders.success');
-});
-
 //Utiliza um nome de rota para redirecionar para outra rota
 Route::get('/dashboard', function () {
-    return redirect()->route('home');
+    return redirect()->route('admin.panel');
 })->name('dashboard');
-
-Route::get('/', function () {
-    return redirect()->route('home');
-});
-
-/*
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-*/
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -125,3 +89,12 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// Loja (Angular SPA com hash routing): a página é servida na raiz e o
+// próprio Angular cuida da navegação interna via fragmento (#/carrinho etc.),
+// então nenhuma rota coringa é necessária.
+Route::get('/', function () {
+    return file_exists(public_path('storefront/browser/index.html'))
+        ? response()->file(public_path('storefront/browser/index.html'))
+        : response('Storefront build not found. Run "npm install && npm run build" inside /storefront first.', 404);
+});

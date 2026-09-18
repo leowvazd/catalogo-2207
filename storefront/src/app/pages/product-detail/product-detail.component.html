@@ -1,0 +1,82 @@
+@if (loading()) {
+  <div class="text-center py-5">
+    <div class="spinner-border text-secondary" role="status"></div>
+  </div>
+} @else if (product(); as p) {
+  @if (message()) {
+    <div class="alert alert-success">{{ message() }}</div>
+  }
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb small">
+      <li class="breadcrumb-item"><a routerLink="/">Produtos</a></li>
+      <li class="breadcrumb-item active">{{ p.name }}</li>
+    </ol>
+  </nav>
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-body">
+      <div class="row g-4">
+        <div class="col-md-5">
+          <div class="product-img-wrapper rounded" style="height: 320px;">
+            @if (p.variants[0]?.image) {
+              <img [src]="p.variants[0].image" [alt]="p.name" />
+            } @else {
+              <div class="d-flex flex-column align-items-center justify-content-center text-muted h-100">
+                <i class="bi bi-image fs-1"></i>
+                <small class="mt-2">Sem imagem</small>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <h1 class="h3 fw-bold">{{ p.name }}</h1>
+          @if (p.brand) {
+            <p class="text-muted mb-2">{{ p.brand }}</p>
+          }
+          <p class="text-secondary">{{ p.description }}</p>
+
+          <hr />
+
+          <h2 class="h6 fw-bold mb-3">Opções disponíveis</h2>
+
+          @for (variant of p.variants; track variant.id) {
+            <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between border rounded p-3 mb-2 gap-2">
+              <div>
+                <div class="fw-semibold">{{ attributeLabel(variant) || variant.sku }}</div>
+                <div class="small text-muted">SKU: {{ variant.sku }}</div>
+                <div class="fs-5 fw-bold text-primary">
+                  R$ {{ variant.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}
+                </div>
+                @if (variant.stock > 0) {
+                  <span class="badge bg-success-subtle text-success-emphasis">Em estoque ({{ variant.stock }})</span>
+                } @else {
+                  <span class="badge bg-secondary">Indisponível</span>
+                }
+              </div>
+
+              @if (variant.stock > 0) {
+                <div class="d-flex align-items-center gap-2">
+                  <input
+                    type="number"
+                    [(ngModel)]="quantities[variant.id]"
+                    min="1"
+                    [max]="variant.stock"
+                    class="form-control form-control-sm"
+                    style="width: 70px;"
+                  />
+                  <button class="btn btn-primary btn-sm text-nowrap" (click)="addToCart(variant.id)">
+                    <i class="bi bi-cart-plus me-1"></i> Adicionar
+                  </button>
+                </div>
+              }
+            </div>
+          } @empty {
+            <p class="text-muted">Nenhuma variante disponível para este produto no momento.</p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

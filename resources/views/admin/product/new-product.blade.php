@@ -424,7 +424,7 @@
                                         @if($variant->price !== null)
 
                                             R$
-                                            {{ number_format($variant->price / 100, 2, ',', '.') }}
+                                            {{ number_format($variant->price, 2, ',', '.') }}
 
                                         @else
 
@@ -1035,7 +1035,7 @@
                                                                    class="form-control"
                                                                    id="edit_variant_price_{{ $variant->id }}"
                                                                    name="price"
-                                                                   value="{{ number_format($variant->price / 100, 2, '.', '') }}"
+                                                                   value="{{ number_format($variant->price, 2, '.', '') }}"
                                                                    required>
 
                                                         </div>

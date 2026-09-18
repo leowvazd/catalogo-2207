@@ -14,7 +14,7 @@ class AdminPanelController extends Controller
             return view('admin.admin-panel', compact('user'));
         }
 
-        return redirect()->route('home');
+        return redirect('/');
     }
 
 
@@ -24,7 +24,7 @@ class AdminPanelController extends Controller
             return view('admin.dashboard', compact('user'));
         }
 
-        return redirect()->route('home');
+        return redirect('/');
     }
 
     public function product(){
@@ -33,7 +33,7 @@ class AdminPanelController extends Controller
             return redirect()->route('products.index');
         }
 
-        return redirect()->route('home');
+        return redirect('/');
     }
 
     public function order(){
@@ -42,7 +42,7 @@ class AdminPanelController extends Controller
             return redirect()->route('orders.index');
         }
 
-        return redirect()->route('home');
+        return redirect('/');
     }
 
     public function config(){
@@ -51,6 +51,6 @@ class AdminPanelController extends Controller
             return redirect()->route('configs.index');
         }
 
-        return redirect()->route('home');
+        return redirect('/');
     }
 }

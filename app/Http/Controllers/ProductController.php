@@ -90,10 +90,6 @@ class ProductController extends Controller
        $product->update($data);
     }
 
-    public function show(){
-        return true;
-    }
-
     public function destroy(string $id){
         if(!$product = Product::find($id)){
             return redirect()
@@ -114,10 +110,6 @@ class ProductController extends Controller
         $data['product_id'] = $product->id;
         $data['is_active'] = $request->has('is_active');
 
-        if (isset($data['price'])) {
-            $data['price'] = (int) round($data['price']);
-        }
-
         ProductVariant::create($data);
 
         return redirect()
@@ -129,10 +121,6 @@ class ProductController extends Controller
         $data = $request->validated();
         $data['product_id'] = $product->id;
         $data['is_active'] = $request->has('is_active');
-
-        if (isset($data['price'])) {
-            $data['price'] = (int) round($data['price']);
-        }
 
         $variant->update($data);
 

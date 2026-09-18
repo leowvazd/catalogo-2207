@@ -28,6 +28,5 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('is-owner', function (User $user, object $register):bool {
             return $user->id === $register->user_id;
         });
-
     }
 }

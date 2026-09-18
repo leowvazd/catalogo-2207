@@ -1,0 +1,48 @@
+@if (loading()) {
+  <div class="text-center py-5">
+    <div class="spinner-border text-secondary" role="status"></div>
+  </div>
+} @else if (notFound()) {
+  <div class="card border-0 shadow-sm">
+    <div class="card-body text-center py-5">
+      <h5 class="text-muted">Pedido não encontrado</h5>
+      <a routerLink="/" class="btn btn-primary btn-sm mt-3">Voltar à loja</a>
+    </div>
+  </div>
+} @else if (order(); as o) {
+  <div class="card border-0 shadow-sm">
+    <div class="card-body text-center py-5">
+      <i class="bi bi-check-circle-fill fs-1 text-success"></i>
+      <h1 class="h4 fw-bold mt-3">Pedido #{{ o.id }} recebido!</h1>
+      <p class="text-muted">
+        Obrigado, {{ o.customer.name }}. Entraremos em contato pelo telefone {{ o.customer.phone }} em breve.
+      </p>
+    </div>
+  </div>
+
+  <div class="card border-0 shadow-sm mt-3">
+    <div class="card-body">
+      <h2 class="h6 fw-bold mb-3">Itens do pedido</h2>
+
+      <ul class="list-group list-group-flush mb-3">
+        @for (item of o.items; track item.product_name) {
+          <li class="list-group-item d-flex justify-content-between px-0">
+            <span>{{ item.product_name }} ({{ item.variant_description }}) &times; {{ item.quantity }}</span>
+            <span class="fw-semibold">
+              R$ {{ item.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}
+            </span>
+          </li>
+        }
+      </ul>
+
+      <div class="d-flex justify-content-between fs-5">
+        <strong>Total</strong>
+        <strong class="text-primary">R$ {{ o.total.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a routerLink="/" class="btn btn-primary">Continuar comprando</a>
+  </div>
+}
